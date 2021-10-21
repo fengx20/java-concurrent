@@ -6,7 +6,7 @@ package com.fengx.concurrent_01;
  * @description: synchronized
  * synchronized保证了代码块在任意时刻最多只有一个线程能执行
  **/
-public class Test1 {
+public class SynchronizedTest {
 
     public static void main(String[] args) throws Exception {
         AddTread add = new AddTread();
@@ -27,7 +27,7 @@ public class Test1 {
     static class AddTread extends Thread {
         public void run() {
             for (int i = 0; i < 10000; i++) {
-                // 加锁
+                // 加锁，要加同一个对象锁
                 synchronized (Counter.lock) {
                     Counter.count += 1;
                 }// 释放锁
@@ -38,9 +38,10 @@ public class Test1 {
     static class DecThread extends Thread {
         public void run() {
             for (int i = 0; i < 10000; i++) {
+                // 加锁，要加同一个对象锁
                 synchronized (Counter.lock) {
                     Counter.count -= 1;
-                }
+                }// 释放锁
             }
         }
     }
